@@ -1,6 +1,12 @@
 const reducer = (state, action) => {
-  if (action.type === "UPDATE_CART") {
-    return { ...state, cart: action.payload.cart };
+  if (action.type === "REMOVE_ITEM") {
+    return {
+      ...state,
+      cart: state.cart.filter((item) => item.id !== action.payload),
+    };
+  }
+  if (action.type === "CLEAR_CART") {
+    return { ...state, cart: [] };
   }
   return state;
 };
