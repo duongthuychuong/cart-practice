@@ -24,12 +24,22 @@ const AppProvider = ({ children }) => {
 
   const increase = (id) => {
     dispatch({ type: "INCREASE", payload: id });
-    console.log(state.cart);
   };
 
   const decrease = (id) => {
     dispatch({ type: "DECREASE", payload: id });
   };
+
+  const fetchData = async () => {
+    dispatch({ type: "LOADING" });
+    const res = await fetch(url);
+    const data = await res.json();
+    dispatch({ type: "FETCHING", payload: data });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     dispatch({ type: "GET_TOTAL" });
